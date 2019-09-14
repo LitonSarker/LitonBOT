@@ -1,0 +1,43 @@
+#Removing Items
+        if text.upper() == "REM" and len(items)>0:
+            keyboard = build_keyboard(items)
+            send_message("Select an item to delete", chat, keyboard)
+        elif text.startswith("/"):
+            continue
+        elif text in items and len(items)>0:
+            db.delete_item(text, chat)  ##
+            items = db.get_items(chat)  ##
+            keyboard = build_keyboard(items)
+            send_message("Select an further item to delete", chat, keyboard)
+        else:
+            items = db.get_items(chat)  ##
+            keyboard = build_keyboard(items)
+            db.add_item(text, chat)  ##
+            #message = "\n".join(items)
+            #send_message(message, chat)
+            send_message("Successfully added item!", chat, keyboard)
+            
+            
+            
+            
+            
+ADD:
+
+
+        else:
+            items = db.get_items(chat)  ##
+            keyboard = build_keyboard(items)
+            db.add_item(text, chat)  ##
+            #message = "\n".join(items)
+            #send_message(message, chat)
+            send_message("Successfully added item!", chat, keyboard)
+
+
+
+
+    else text not in items:
+        items = db.get_items(chat)
+        keyboard = build_keyboard(items)
+        db.add_item(text, chat)
+        send_message("This currency is not included in the list, I'm adding this now.", chat, keyboard)
+        send_message("Successfully added item!", chat, keyboard)
